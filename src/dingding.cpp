@@ -128,7 +128,8 @@ int DingDing::get_user_listid(int dept_id, json &rs)
 
 int DingDing::get_attendance_list(
     string date_from, string date_to,
-    std::list<string> userid_list, int offset, int limit, json &rs)
+    std::list<string> userid_list,
+    int offset, int limit, json &rs)
 {
     string url = "https://oapi.dingtalk.com";
     string api = "/attendance/list?access_token=" + accessToken;
@@ -141,6 +142,28 @@ int DingDing::get_attendance_list(
         j["userIdList"][i++] = item;
     j["offset"] = offset;
     j["limit"] = limit;
+
+    auto conn = get_conn(url);
+    RestClient::Response r = conn->post(api, j.dump().c_str());
+    put_conn(conn);
+    return rs_parse(r, rs);
+}
+
+int DingDing::get_checkin_record(
+    std::list<string> userid_list,
+    long start_time, long end_time,
+    int cursor, int size, json &rs)
+{
+    string url = "https://oapi.dingtalk.com";
+    string api = "/topapi/checkin/record/get?access_token=" + accessToken;
+    json j;
+    j["userid_list"] = "";
+    for (auto item : userid_list)
+        j["userid_list"] = j["userid_list"].get<string>() + "," + item;
+    j["start_time"] = start_time;
+    j["end_time"] = end_time;
+    j["cursor"] = cursor;
+    j["size"] = size;
 
     auto conn = get_conn(url);
     RestClient::Response r = conn->post(api, j.dump().c_str());

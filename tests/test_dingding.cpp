@@ -51,9 +51,9 @@ static void test_user(void **status)
 {
     json rs;
 
-    dd->get_user_listsimple(1, 0, 50, rs);
+    dd->get_user_listsimple(411420832, 0, 50, rs);
     printf("%s\n", rs.dump().c_str());
-    dd->get_user_listid(1, rs);
+    dd->get_user_listid(411420832, rs);
     printf("%s\n", rs.dump().c_str());
 }
 
@@ -63,10 +63,22 @@ static void test_attendance(void **status)
 
     std::list<string> list;
     list.push_back("115908011925813053");
+    list.push_back("056700020835114786");
 
     dd->get_attendance_list(
-        "2022-03-14 00:00:00", "2022-03-20 00:00:00",
-        list, 0, 50, rs);
+        "2022-03-14 00:00:00", "2022-03-20 00:00:00", list, 0, 50, rs);
+    printf("%s\n", rs.dump().c_str());
+}
+
+static void test_checkin(void **status)
+{
+    json rs;
+
+    std::list<string> list;
+    list.push_back("115908011925813053");
+    list.push_back("056700020835114786");
+
+    dd->get_checkin_record(list, 1647187200000, 1647705600000, 0, 50, rs);
     printf("%s\n", rs.dump().c_str());
 }
 
@@ -76,6 +88,7 @@ int main(void)
         cmocka_unit_test(test_department),
         cmocka_unit_test(test_user),
         cmocka_unit_test(test_attendance),
+        cmocka_unit_test(test_checkin),
     };
     return cmocka_run_group_tests(tests, NULL, NULL);
 }
