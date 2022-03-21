@@ -7,3 +7,9 @@ add_library(dingding SHARED ${SRC})
 set_target_properties(dingding PROPERTIES PUBLIC_HEADER "${INC}")
 set_target_properties(dingding PROPERTIES VERSION 1.0.0 SOVERSION 1)
 target_link_libraries(dingding restclient-cpp fmt)
+
+install(TARGETS dingding
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+    PUBLIC_HEADER DESTINATION include)
