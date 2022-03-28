@@ -149,6 +149,19 @@ int DingDing::get_attendance_list(
     return rs_parse(r, rs);
 }
 
+int DingDing::get_attendance_updatedata(string userid, string date, json &rs) {
+    string url = "https://oapi.dingtalk.com";
+    string api = "/topapi/attendance/getupdatedata?access_token=" + accessToken;
+    json j;
+    j["userid"] = userid;
+    j["work_date"] = date;
+
+    auto conn = get_conn(url);
+    RestClient::Response r = conn->post(api, j.dump().c_str());
+    put_conn(conn);
+    return rs_parse(r, rs);
+}
+
 int DingDing::get_checkin_record(
     std::list<string> userid_list,
     long start_time, long end_time,

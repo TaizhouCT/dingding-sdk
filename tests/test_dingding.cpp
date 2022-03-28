@@ -68,6 +68,10 @@ static void test_attendance(void **status)
     dd->get_attendance_list(
         "2022-03-14 00:00:00", "2022-03-20 00:00:00", list, 0, 50, rs);
     printf("%s\n", rs.dump().c_str());
+
+    dd->get_attendance_updatedata(
+        "056700020835114786", "2022-03-22 00:00:00", rs);
+    printf("%s\n", rs.dump().c_str());
 }
 
 static void test_checkin(void **status)

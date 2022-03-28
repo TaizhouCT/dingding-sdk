@@ -20,6 +20,7 @@ public:
         string date_from, string date_to,
         std::list<string> userid_list,
         int offset, int limit, json &rs);
+    int get_attendance_updatedata(string userid, string date, json &rs);
     int get_checkin_record(
         std::list<string> userid_list,
         long start_time, long end_time,
@@ -28,6 +29,7 @@ public:
 private:
     string APIKey;
     string SecretKey;
+public:
     string accessToken;
 };
 
