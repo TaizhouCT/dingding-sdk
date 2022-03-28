@@ -1,3 +1,4 @@
+#include <time.h>
 #include <string>
 #include <sstream>
 #include <iostream>
@@ -53,7 +54,7 @@ DingDing::~DingDing()
 {
 }
 
-int DingDing::init_access_token()
+int DingDing::update_access_token()
 {
     string url = "https://api.dingtalk.com";
     string api = "/v1.0/oauth2/accessToken";
@@ -67,6 +68,7 @@ int DingDing::init_access_token()
     json rs;
     int rc = rs_parse(r, rs);
     this->accessToken = rs["accessToken"];
+    this->expireTs = time(NULL) + rs["expireIn"].get<int>();
     return rc;
 }
 

@@ -1,6 +1,7 @@
 #ifndef __DINGDING_H
 #define __DINGDING_H
 
+#include <cstdint>
 #include <string>
 #include <list>
 #include <nlohmann/json.hpp>
@@ -11,7 +12,7 @@ class DingDing {
 public:
     DingDing(string APIKey, string SecretKey);
     virtual ~DingDing();
-    int init_access_token();
+    int update_access_token();
     int get_department_listsub(int dept_id, json &rs);
     int get_department_listsubid(int dept_id, json &rs);
     int get_user_listsimple(int dept_id, int cursor, int size, json &rs);
@@ -31,6 +32,7 @@ private:
     string SecretKey;
 public:
     string accessToken;
+    time_t expireTs;
 };
 
 #endif

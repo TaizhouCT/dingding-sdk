@@ -29,7 +29,7 @@ static __attribute__((constructor)) void ctor()
     string SecretKey = conf["dingding"]["SecretKey"];
 
     dd = new DingDing(APIKey, SecretKey);
-    dd->init_access_token();
+    dd->update_access_token();
 }
 
 static __attribute__((destructor)) void dtor()
