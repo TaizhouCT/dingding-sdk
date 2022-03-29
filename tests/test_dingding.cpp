@@ -51,8 +51,12 @@ static void test_user(void **status)
 {
     json rs;
 
+    dd->get_user("056700020835114786", rs);
+    printf("%s\n", rs.dump().c_str());
+
     dd->get_user_listsimple(411420832, 0, 50, rs);
     printf("%s\n", rs.dump().c_str());
+
     dd->get_user_listid(411420832, rs);
     printf("%s\n", rs.dump().c_str());
 }

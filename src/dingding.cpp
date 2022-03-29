@@ -99,6 +99,20 @@ int DingDing::get_department_listsubid(int dept_id, json &rs)
     return rs_parse(r, rs);
 }
 
+int DingDing::get_user(string userid, json &rs)
+{
+    string url = "https://oapi.dingtalk.com";
+    string api = "/topapi/v2/user/get?access_token=" + accessToken;
+    json j;
+    j["userid"] = userid;
+    j["language"] = "zh_CN";
+
+    auto conn = get_conn(url);
+    RestClient::Response r = conn->post(api, j.dump().c_str());
+    put_conn(conn);
+    return rs_parse(r, rs);
+}
+
 int DingDing::get_user_listsimple(int dept_id, int cursor, int size, json &rs)
 {
     string url = "https://oapi.dingtalk.com";
